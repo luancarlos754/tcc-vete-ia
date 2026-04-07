@@ -9,6 +9,9 @@ st.set_page_config(page_title="Vete-IA: Detecção Leucocitária", layout="wide"
 st.title("🔬 Sistema Inteligente de Triagem de Neutrófilos")
 st.sidebar.info("Projeto de TCC - Medicina Veterinária (São Judas)")
 
+st.sidebar.markdown("---")
+st.sidebar.write("Criado por: **Luan Carlos Verteiro Pereira**")
+
 # 1. Carregar o melhor modelo (V3)
 @st.cache_resource
 def load_model():
