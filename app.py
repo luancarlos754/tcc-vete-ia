@@ -14,25 +14,38 @@ st.markdown(
     """
     <style>
         :root {
+            --vet-bg: #07040d;
+            --vet-bg-2: #12081f;
             --vet-purple: #820ad1;
-            --vet-purple-dark: #3b0a57;
-            --vet-purple-soft: #f4e8ff;
-            --vet-green: #00a884;
-            --vet-ink: #19151f;
-            --vet-muted: #6f667a;
-            --vet-line: #e8dff0;
-            --vet-surface: #ffffff;
-            --vet-page: #fbf8fd;
+            --vet-purple-2: #b15cff;
+            --vet-mint: #20e3b2;
+            --vet-ink: #17111f;
+            --vet-muted: #756a81;
+            --vet-line: #eadff4;
+            --vet-panel: #ffffff;
+            --vet-soft: #f8f3fc;
         }
 
         .stApp {
-            background: linear-gradient(180deg, #fbf8fd 0%, #ffffff 52%, #f7f3fb 100%);
+            background:
+                linear-gradient(180deg, var(--vet-bg) 0 30rem, #f8f4fb 30rem 100%);
             color: var(--vet-ink);
+        }
+
+        .stApp::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 72px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 72px);
+            mask-image: linear-gradient(180deg, #000 0, transparent 31rem);
         }
 
         .main .block-container {
             max-width: 1180px;
-            padding-top: 2rem;
+            padding-top: 1.7rem;
             padding-bottom: 3rem;
         }
 
@@ -44,13 +57,13 @@ st.markdown(
         [data-testid="stSidebar"] h1,
         [data-testid="stSidebar"] h2,
         [data-testid="stSidebar"] h3 {
-            color: var(--vet-purple-dark);
+            color: var(--vet-ink);
         }
 
         .brand-lockup {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 0.8rem;
             margin-bottom: 1rem;
         }
 
@@ -58,21 +71,22 @@ st.markdown(
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 3.2rem;
-            height: 3.2rem;
+            width: 3rem;
+            height: 3rem;
             flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,0.16);
             border-radius: 8px;
-            background: var(--vet-purple);
+            background: linear-gradient(135deg, var(--vet-purple), #4d1475);
             color: #ffffff;
-            box-shadow: 0 14px 30px rgba(130, 10, 209, 0.2);
+            box-shadow: 0 16px 36px rgba(130, 10, 209, 0.26);
             font-weight: 900;
             letter-spacing: 0;
         }
 
         .brand-text strong {
             display: block;
-            color: var(--vet-purple-dark);
-            font-size: 1.3rem;
+            color: var(--vet-ink);
+            font-size: 1.26rem;
             line-height: 1.1;
         }
 
@@ -84,67 +98,135 @@ st.markdown(
         }
 
         .hero {
-            border: 1px solid var(--vet-line);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 8px;
-            background: linear-gradient(135deg, #ffffff 0%, #f6ebff 100%);
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
+                linear-gradient(135deg, rgba(130,10,209,0.34), transparent 58%);
             padding: 2rem;
-            box-shadow: 0 16px 34px rgba(59, 10, 87, 0.08);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.24);
+            backdrop-filter: blur(12px);
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+            grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
             gap: 2rem;
-            align-items: center;
+            align-items: stretch;
+        }
+
+        .hero .brand-text strong,
+        .hero h1 {
+            color: #ffffff;
+        }
+
+        .hero .brand-text span,
+        .hero p {
+            color: rgba(255, 255, 255, 0.72);
         }
 
         .hero-label {
             width: fit-content;
-            border: 1px solid rgba(130, 10, 209, 0.18);
+            border: 1px solid rgba(255,255,255,0.18);
             border-radius: 999px;
-            background: #ffffff;
-            color: var(--vet-purple);
-            padding: 0.35rem 0.75rem;
-            margin: 0 0 1rem;
-            font-size: 0.82rem;
+            background: rgba(255,255,255,0.08);
+            color: #ffffff;
+            padding: 0.38rem 0.78rem;
+            margin: 0.1rem 0 1rem;
+            font-size: 0.8rem;
             font-weight: 800;
             letter-spacing: 0;
             text-transform: uppercase;
         }
 
         .hero h1 {
-            max-width: 780px;
-            margin: 0 0 0.85rem;
-            color: var(--vet-purple-dark);
-            font-size: clamp(2rem, 4vw, 3.4rem);
-            line-height: 1.04;
+            max-width: 760px;
+            margin: 0 0 0.9rem;
+            font-size: clamp(2.35rem, 5vw, 4.6rem);
+            line-height: 0.98;
             letter-spacing: 0;
         }
 
         .hero p {
-            max-width: 720px;
+            max-width: 680px;
             margin: 0;
-            color: var(--vet-muted);
-            font-size: 1.04rem;
+            font-size: 1.05rem;
             line-height: 1.65;
         }
 
-        .hero-summary {
-            border-left: 4px solid var(--vet-green);
-            padding-left: 1.1rem;
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.4rem;
         }
 
-        .hero-summary strong {
-            display: block;
-            color: var(--vet-purple-dark);
-            font-size: 1.05rem;
-            margin-bottom: 0.45rem;
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.35rem;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.86);
+            padding: 0 0.9rem;
+            font-size: 0.92rem;
+            font-weight: 700;
         }
 
-        .hero-summary span {
+        .signal-panel {
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 8px;
+            background: rgba(10, 5, 18, 0.64);
+            padding: 1rem;
+            min-height: 100%;
+        }
+
+        .signal-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .signal-panel strong {
+            color: #ffffff;
+        }
+
+        .signal-status {
+            border-radius: 999px;
+            background: rgba(32, 227, 178, 0.12);
+            color: var(--vet-mint);
+            padding: 0.25rem 0.65rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .signal-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .signal-item {
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.06);
+            padding: 0.85rem;
+        }
+
+        .signal-item span {
             display: block;
-            color: var(--vet-muted);
-            line-height: 1.55;
+            color: rgba(255,255,255,0.56);
+            font-size: 0.82rem;
+            margin-bottom: 0.18rem;
+        }
+
+        .signal-item b {
+            color: #ffffff;
+            font-size: 1.15rem;
         }
 
         .metric-grid {
@@ -159,15 +241,15 @@ st.markdown(
         .result-card {
             border: 1px solid var(--vet-line);
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.98);
             padding: 1rem;
-            box-shadow: 0 10px 26px rgba(59, 10, 87, 0.06);
+            box-shadow: 0 18px 44px rgba(61, 25, 84, 0.08);
         }
 
         .metric-card strong {
             display: block;
-            color: var(--vet-purple-dark);
-            font-size: 1.18rem;
+            color: var(--vet-ink);
+            font-size: 1.15rem;
             line-height: 1.2;
         }
 
@@ -181,7 +263,7 @@ st.markdown(
 
         .section-title {
             margin: 0.25rem 0 0.55rem;
-            color: var(--vet-purple-dark);
+            color: var(--vet-ink);
             font-size: 1.35rem;
             font-weight: 850;
             letter-spacing: 0;
@@ -198,8 +280,8 @@ st.markdown(
             align-items: center;
             gap: 0.4rem;
             border-radius: 999px;
-            background: var(--vet-purple-soft);
-            color: var(--vet-purple-dark);
+            background: #f2e5fb;
+            color: #43105f;
             padding: 0.38rem 0.8rem;
             font-weight: 800;
             margin: 0.2rem 0.35rem 0.75rem 0;
@@ -217,7 +299,7 @@ st.markdown(
         }
 
         .research-note strong {
-            color: var(--vet-purple-dark);
+            color: var(--vet-ink);
         }
 
         .creator {
@@ -229,7 +311,7 @@ st.markdown(
         }
 
         div[data-testid="stFileUploader"] {
-            border: 1px dashed rgba(130, 10, 209, 0.35);
+            border: 1px dashed rgba(130, 10, 209, 0.34);
             border-radius: 8px;
             background: #ffffff;
             padding: 0.6rem;
@@ -253,7 +335,7 @@ st.markdown(
             color: var(--vet-purple);
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 900px) {
             .hero {
                 padding: 1.35rem;
             }
@@ -314,16 +396,36 @@ st.markdown(
                     </div>
                 </div>
                 <div class="hero-label">Protótipo de inteligência artificial</div>
-                <h1>Triagem de neutrófilos em esfregaços sanguíneos</h1>
+                <h1>Triagem morfológica de neutrófilos com visão computacional</h1>
                 <p>
-                    Envie uma microfotografia e visualize a classificação automatizada
-                    entre neutrófilos segmentados e bastonetes, com contagem resumida
-                    para apoio à triagem do desvio à esquerda.
+                    Uma interface premium para demonstrar detecção, classificação e contagem
+                    de neutrófilos segmentados e bastonetes em microfotografias de esfregaços sanguíneos.
                 </p>
+                <div class="hero-actions">
+                    <span class="hero-chip">YOLOv8</span>
+                    <span class="hero-chip">Desvio à esquerda</span>
+                    <span class="hero-chip">Hematologia veterinária</span>
+                </div>
             </div>
-            <div class="hero-summary">
-                <strong>Foco do protótipo</strong>
-                <span>Detecção visual, classificação morfológica e relatório simples para demonstração acadêmica.</span>
+            <div class="signal-panel">
+                <div class="signal-panel-header">
+                    <strong>Fluxo de análise</strong>
+                    <span class="signal-status">experimental</span>
+                </div>
+                <div class="signal-list">
+                    <div class="signal-item">
+                        <span>Entrada</span>
+                        <b>Microfotografia</b>
+                    </div>
+                    <div class="signal-item">
+                        <span>Saída visual</span>
+                        <b>Bounding boxes</b>
+                    </div>
+                    <div class="signal-item">
+                        <span>Resumo</span>
+                        <b>CSV + métricas</b>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -335,16 +437,16 @@ st.markdown(
     """
     <div class="metric-grid">
         <div class="metric-card">
-            <strong>YOLO</strong>
+            <strong>Detecção inteligente</strong>
             <span>Modelo de visão computacional aplicado a imagens microscópicas.</span>
         </div>
         <div class="metric-card">
-            <strong>Upload rápido</strong>
-            <span>Compatível com imagens JPG, JPEG e PNG.</span>
+            <strong>Triagem organizada</strong>
+            <span>Contagem de segmentados, bastonetes e total detectado.</span>
         </div>
         <div class="metric-card">
-            <strong>Resumo exportável</strong>
-            <span>Contagem por classe e arquivo CSV para documentação dos testes.</span>
+            <strong>Resultado exportável</strong>
+            <span>Resumo em CSV para documentação dos testes e apresentação acadêmica.</span>
         </div>
     </div>
     """,
