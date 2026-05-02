@@ -24,9 +24,56 @@ st.markdown(
 
         .stApp {
             background:
+                radial-gradient(circle at 9% 14%, rgba(124, 58, 237, 0.13) 0 3.4rem, transparent 3.5rem),
+                radial-gradient(circle at 82% 12%, rgba(21, 94, 117, 0.12) 0 4.5rem, transparent 4.6rem),
+                radial-gradient(circle at 92% 72%, rgba(22, 163, 74, 0.10) 0 5rem, transparent 5.1rem),
                 radial-gradient(circle at top left, rgba(22, 163, 74, 0.14), transparent 28rem),
                 linear-gradient(180deg, #f7fbfb 0%, #eef6f5 46%, #ffffff 100%);
             color: var(--vete-ink);
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .brand-mark {
+            position: relative;
+            width: 3.15rem;
+            height: 3.15rem;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 50% 50%, #ffffff 0 18%, transparent 19%),
+                radial-gradient(circle at 34% 33%, #f0abfc 0 11%, transparent 12%),
+                radial-gradient(circle at 66% 35%, #a7f3d0 0 10%, transparent 11%),
+                radial-gradient(circle at 45% 68%, #bae6fd 0 12%, transparent 13%),
+                linear-gradient(135deg, #155e75, #16a34a);
+            box-shadow: 0 12px 24px rgba(21, 94, 117, 0.22);
+        }
+
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            inset: -0.28rem;
+            border: 2px solid rgba(22, 163, 74, 0.22);
+            border-radius: 50%;
+        }
+
+        .brand-text strong {
+            display: block;
+            color: var(--vete-primary);
+            font-size: 1.25rem;
+            line-height: 1.1;
+        }
+
+        .brand-text span {
+            display: block;
+            color: var(--vete-muted);
+            font-size: 0.86rem;
+            margin-top: 0.15rem;
         }
 
         [data-testid="stSidebar"] {
@@ -47,6 +94,8 @@ st.markdown(
         }
 
         .hero {
+            position: relative;
+            overflow: hidden;
             border: 1px solid rgba(21, 94, 117, 0.14);
             border-radius: 8px;
             background:
@@ -55,6 +104,48 @@ st.markdown(
             color: #ffffff;
             padding: 2.3rem;
             box-shadow: 0 18px 42px rgba(15, 76, 92, 0.14);
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .hero::before {
+            width: 20rem;
+            height: 20rem;
+            right: -5rem;
+            top: -5.5rem;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.46) 0 10%, transparent 11%),
+                radial-gradient(circle at 35% 35%, rgba(216, 180, 254, 0.55) 0 10%, transparent 11%),
+                radial-gradient(circle at 65% 36%, rgba(167, 243, 208, 0.48) 0 9%, transparent 10%),
+                radial-gradient(circle at 45% 67%, rgba(186, 230, 253, 0.50) 0 11%, transparent 12%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.14) 0 42%, transparent 43%);
+            opacity: 0.95;
+        }
+
+        .hero::after {
+            width: 9rem;
+            height: 9rem;
+            right: 11rem;
+            bottom: -3.7rem;
+            background:
+                radial-gradient(circle at 48% 50%, rgba(255, 255, 255, 0.5) 0 12%, transparent 13%),
+                radial-gradient(circle at 34% 38%, rgba(240, 171, 252, 0.5) 0 13%, transparent 14%),
+                radial-gradient(circle at 63% 61%, rgba(167, 243, 208, 0.48) 0 12%, transparent 13%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0 44%, transparent 45%);
+        }
+
+        .hero .brand-lockup,
+        .hero-label,
+        .hero h1,
+        .hero p {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-label {
@@ -182,7 +273,18 @@ st.markdown(
 
 
 with st.sidebar:
-    st.markdown("## Vete-IA")
+    st.markdown(
+        """
+        <div class="brand-lockup">
+            <div class="brand-mark"></div>
+            <div class="brand-text">
+                <strong>Vete-IA</strong>
+                <span>Triagem leucocitária</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.caption("Projeto de TCC em Medicina Veterinária")
     st.divider()
     st.markdown("### Configurações da análise")
@@ -206,6 +308,13 @@ with st.sidebar:
 st.markdown(
     """
     <section class="hero">
+        <div class="brand-lockup">
+            <div class="brand-mark"></div>
+            <div class="brand-text">
+                <strong style="color: #ffffff;">Vete-IA</strong>
+                <span style="color: #c7f9e6;">Análise microscópica assistida</span>
+            </div>
+        </div>
         <div class="hero-label">Triagem assistida por inteligência artificial</div>
         <h1>Sistema Inteligente de Triagem de Neutrófilos</h1>
         <p>
