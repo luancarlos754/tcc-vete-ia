@@ -480,7 +480,7 @@ def load_densenet():
     model_path = "densenet_best.pth"
     if not os.path.exists(model_path) or os.path.getsize(model_path) < 1024 * 1024:
         # Substitua pela URL direta do arquivo carregado no GitHub Release
-        url = "SEU_LINK_DIRETO_DO_GITHUB_RELEASE"
+        url = "https://github.com/luancarlos754/tcc-vete-ia/releases/download/v1.0/densenet_best.pth"
         try:
             urllib.request.urlretrieve(url, model_path)
         except Exception:
